@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useRef } from 'react';
 import './App.css';
 
+import vjs from 'video.js';
+import 'video.js/dist/video-js.css'
+import 'videojs-flash'
+
+
 function App() {
+  const video = useRef(null);
+
+  useEffect(() => {
+    console.log(video.current);
+    vjs(video.current, {
+      autoplay: true,
+      controls: true,
+      sources: [{
+        type: 'video/mp4',
+        src: 'http://vjs.zencdn.net/v/oceans.mp4'
+      }, {
+        type: 'video/webm',
+        src: 'http://vjs.zencdn.net/v/oceans.webm'
+      }]
+    });
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>live demo</p>
+      <video-js ref={video} />
     </div>
   );
 }
